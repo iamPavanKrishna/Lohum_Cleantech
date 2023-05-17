@@ -4,6 +4,12 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
+
+# Redirecting to the API call
+@app.route('/', methods=['GET'])
+def home():
+    return redirect('/price')  # Redirecting to the below API call
+
 # API call to get the latest price
 @app.route('/price', methods=['GET', 'POST', 'HEAD', 'PUT', 'DELETE'])
 def get_price():
