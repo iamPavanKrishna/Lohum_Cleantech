@@ -21,14 +21,18 @@ def get_price():
     if request.method in ['POST', 'HEAD', 'PUT', 'DELETE']:
         return "INVALID REQUEST!"
     else:
-        # Getting the url
-        r = requests.get("https://www.metal.com/Lithium-ion-Battery/202303240001")
-        soup = BeautifulSoup(r.text, "html.parser")  # Web sraping the url using BeautifulSoup from bs4 library
+        try:
 
-        # Finding the span tag which contains the latest price information
-        price = soup.find("span", {"class": "strong___1JlBD priceDown___2TbRQ"})
+            # Getting the url
+            r = requests.get("https://www.metal.com/Lithium-ion-Battery/202303240001")
+            soup = BeautifulSoup(r.text, "html.parser")  # Web sraping the url using BeautifulSoup from bs4 library
 
-        return "Latest price: "+ price.text  # Returning the price back to the client(User)
+            # Finding the span tag which contains the latest price information
+            price = soup.find("span", {"class": "strong___1JlBD priceDown___2TbRQ"})
+
+            return "Latest price: "+ price.text  # Returning the price back to the client(User)
+        except:
+            return "An error occured while fetching the data."
 
 
 
